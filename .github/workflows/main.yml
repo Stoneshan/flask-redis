@@ -1,0 +1,14 @@
+name: Docker image build and push
+on: [push]
+jobs:
+  Docker-Build-Push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Docker image build
+        run: docker build -t Stoneshan/flask-redis:latest .
+      - name: List docker image
+        run: docker image ls
+      - name: Dockerhub login
+        run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
